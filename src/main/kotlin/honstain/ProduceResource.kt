@@ -16,13 +16,32 @@ class ProduceResource {
     )
 
     @GET
+    fun getAll(): List<Product> {
+        return products.values.toList()
+    }
+
+    @GET
     @Path("/{productId}")
-    fun helloWorld(@PathParam("productId") productId:String): Product {
+    fun getSingle(@PathParam("productId") productId: Long): Product {
         val result = products.getOrElse(productId.toLong(), {
-            throw BadRequestException()
+            throw NotFoundException()
         })
         return result
     }
 
-    // TODO - Still porting https://bitbucket.org/honstain/javalin-product-service/src/master/src/main/kotlin/com/mycompany/product/ProductController.kt
+    @POST
+    fun create(product: Product): Product {
+        products[product.productId] = product
+        return product
+    }
+
+    @PUT
+    @Path("/{productId}")
+    fun update(@PathParam("productId") productId: Long, product: Product): Product {
+        products.getOrElse(productId, {
+            throw NotFoundException()
+        })
+        products[product.productId] = product
+        return product
+    }
 }
