@@ -23,7 +23,7 @@ class ProduceResource {
     @GET
     @Path("/{productId}")
     fun getSingle(@PathParam("productId") productId: Long): Product {
-        val result = products.getOrElse(productId.toLong(), {
+        val result = products.getOrElse(productId, {
             throw NotFoundException()
         })
         return result
