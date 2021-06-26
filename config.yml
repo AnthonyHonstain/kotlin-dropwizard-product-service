@@ -16,3 +16,22 @@ server:
   adminConnectors:
     - type: http
       port: 7071
+
+# https://www.dropwizard.io/en/latest/manual/core.html#metrics
+# https://www.dropwizard.io/en/latest/manual/configuration.html#graphite-reporter
+metrics:
+  reporters:
+    - type: graphite
+      host: localhost
+      port: 2003
+      transport: tcp
+      #prefix: "ProductService"
+      includes: [
+        org.eclipse.jetty.util.thread.QueuedThreadPool.dw.jobs,
+        org.eclipse.jetty.util.thread.QueuedThreadPool.dw.jobs-queue-utilization,
+        org.eclipse.jetty.util.thread.QueuedThreadPool.dw.size,
+        org.eclipse.jetty.util.thread.QueuedThreadPool.dw.utilization,
+        org.eclipse.jetty.util.thread.QueuedThreadPool.dw.utilization-max,
+        com.honstain.inventory.resources.InventoryResource.createHoldFromSource,
+      ]
+      frequency: 2 seconds
