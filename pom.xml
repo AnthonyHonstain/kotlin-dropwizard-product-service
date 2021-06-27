@@ -24,6 +24,8 @@
         <kotlin.compiler.languageVersion>1.4</kotlin.compiler.languageVersion>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
+
+        <micrometer.version>1.7.1</micrometer.version>
     </properties>
 
     <dependencyManagement>
@@ -64,6 +66,12 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-graphite</artifactId>
+            <version>${micrometer.version}</version>
         </dependency>
         <!--
         https://www.dropwizard.io/en/latest/manual/testing.html
