@@ -42,6 +42,8 @@ class ProduceResource {
     @Timed
     @Path("/{productId}")
     fun update(@PathParam("productId") productId: Long, product: Product): Product {
+        if (productId != product.productId) throw BadRequestException()
+
         products.getOrElse(productId, {
             throw NotFoundException()
         })

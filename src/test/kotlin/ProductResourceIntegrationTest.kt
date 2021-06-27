@@ -81,4 +81,17 @@ class ProductResourceIntegrationTest {
         assertEquals(updatedProduct, result)
     }
 
+    @Test
+    fun `PUT to update product with mismatch body and path param`() {
+        val updatedProduct = Product(2, "SKU-01_updated", null, null)
+
+        val client: Client = EXT.client()
+        val response: Response = client.target("http://localhost:${EXT.localPort}/product/1")
+                .request()
+                .put(Entity.json(updatedProduct))
+        // TODO - warning: the data is sourced from a dump in-memory hashMap so that I could work around the need for a DB.
+
+        assertEquals(400, response.status)
+    }
+
 }
