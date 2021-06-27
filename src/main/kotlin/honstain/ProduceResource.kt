@@ -1,5 +1,6 @@
 package honstain
 
+import com.codahale.metrics.annotation.Timed
 import honstain.api.Product
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
@@ -21,6 +22,7 @@ class ProduceResource {
     }
 
     @GET
+    @Timed
     @Path("/{productId}")
     fun getSingle(@PathParam("productId") productId: Long): Product {
         val result = products.getOrElse(productId, {
@@ -30,12 +32,14 @@ class ProduceResource {
     }
 
     @POST
+    @Timed
     fun create(product: Product): Product {
         products[product.productId] = product
         return product
     }
 
     @PUT
+    @Timed
     @Path("/{productId}")
     fun update(@PathParam("productId") productId: Long, product: Product): Product {
         products.getOrElse(productId, {
