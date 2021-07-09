@@ -795,12 +795,12 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Dropwziard",
   "uid": "FPUpWNk7k",
-  "version": 2
+  "version": 3
 }

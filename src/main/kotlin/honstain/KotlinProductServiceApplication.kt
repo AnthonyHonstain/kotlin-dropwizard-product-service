@@ -38,5 +38,6 @@ class KotlinProductServiceApplication: Application<KotlinProductServiceConfigura
         env.objectMapper.registerModule(KotlinModule())
 
         env.jersey().register(ProduceResource())
+        env.jersey().register(ProvenanceIDFilter())
     }
 }
