@@ -170,7 +170,7 @@
         "x": 12,
         "y": 1
       },
-      "id": 11,
+      "id": 18,
       "options": {
         "legend": {
           "calcs": [],
@@ -185,11 +185,11 @@
         {
           "hide": false,
           "refCount": 0,
-          "refId": "A",
-          "target": "ProductService.*.org.eclipse.jetty.util.thread.QueuedThreadPool.dw.utilization-max"
+          "refId": "B",
+          "target": "ProductService.*.org.eclipse.jetty.util.thread.QueuedThreadPool.dw.size"
         }
       ],
-      "title": "Utilization Max",
+      "title": "Size",
       "type": "timeseries"
     },
     {
@@ -330,7 +330,7 @@
         "x": 12,
         "y": 9
       },
-      "id": 5,
+      "id": 11,
       "options": {
         "legend": {
           "calcs": [],
@@ -345,26 +345,12 @@
         {
           "hide": false,
           "refCount": 0,
-          "refId": "B",
-          "target": "ProductService.*.org.eclipse.jetty.util.thread.QueuedThreadPool.dw.jobs"
+          "refId": "A",
+          "target": "ProductService.*.org.eclipse.jetty.util.thread.QueuedThreadPool.dw.utilization-max"
         }
       ],
-      "title": "Jobs",
+      "title": "Utilization Max",
       "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 17
-      },
-      "id": 8,
-      "panels": [],
-      "title": "API",
-      "type": "row"
     },
     {
       "datasource": null,
@@ -421,8 +407,103 @@
       "gridPos": {
         "h": 8,
         "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "ProductService.*.org.eclipse.jetty.util.thread.QueuedThreadPool.dw.jobs"
+        }
+      ],
+      "title": "Jobs",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
         "x": 0,
-        "y": 18
+        "y": 25
+      },
+      "id": 8,
+      "panels": [],
+      "title": "API",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
       },
       "id": 4,
       "options": {
@@ -500,7 +581,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "reqps"
         },
         "overrides": []
       },
@@ -508,9 +590,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 18
+        "y": 26
       },
-      "id": 12,
+      "id": 19,
       "options": {
         "legend": {
           "calcs": [],
@@ -524,11 +606,18 @@
       "targets": [
         {
           "hide": false,
+          "refCount": 0,
           "refId": "A",
-          "target": "derivative(ProductService.*.honstain.ProduceResource.*.total.count)"
+          "target": "ProductService.*.io.dropwizard.jetty.MutableServletContextHandler.requests.m1_rate"
+        },
+        {
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "ProductService.*.io.dropwizard.jetty.MutableServletContextHandler.5xx-responses.m1_rate"
         }
       ],
-      "title": "ProductResource Total Count",
+      "title": "MustableServletContextHandler request count m1 Rate",
       "type": "timeseries"
     },
     {
@@ -588,7 +677,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 34
       },
       "id": 15,
       "options": {
@@ -612,17 +701,176 @@
       "type": "timeseries"
     },
     {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "ProductService.*.honstain.ProduceResource.*.total.p50"
+        }
+      ],
+      "title": "ProductResource Total P50",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "derivative(ProductService.*.honstain.ProduceResource.*.total.count)"
+        }
+      ],
+      "title": "ProductResource Total Count",
+      "type": "timeseries"
+    },
+    {
       "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 50
       },
       "id": 17,
       "panels": [],
-      "title": "HttoConnectionFactory",
+      "title": "HttpConnectionFactory",
       "type": "row"
     },
     {
@@ -681,7 +929,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 51
       },
       "id": 13,
       "options": {
@@ -762,7 +1010,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 51
       },
       "id": 14,
       "options": {
@@ -795,12 +1043,12 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Dropwziard",
-  "uid": "FPUpWNk7k",
-  "version": 3
+  "title": "Dropwziard Product",
+  "uid": "DEjN_jmnz",
+  "version": 6
 }

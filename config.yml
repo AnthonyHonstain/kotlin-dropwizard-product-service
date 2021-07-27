@@ -2,18 +2,23 @@ logging:
   level: INFO
   loggers:
     honstain: DEBUG
-#  appenders:
+  appenders:
 #    - type: console
 #      threshold: DEBUG
 #      layout:
 #        type: json
 #        flattenMdc: true
+      - type: console
+        threshold: DEBUG
+        layout:
+          type: json
+          flattenMdc: true
 
 # Setup initial configuration following Dropwizard docs - dropped HTTPS and certs
 # https://www.dropwizard.io/en/latest/manual/configuration.html#default
 server:
-  minThreads: 4
-  maxThreads: 4 # Setting this super low to help me explore the system under resource constraints
+  minThreads: 10
+  maxThreads: 100 # Setting this super low to help me explore the system under resource constraints
   adminMinThreads: 1
   adminMaxThreads: 4
   adminContextPath: /
@@ -26,7 +31,7 @@ server:
       port: 7071
   requestLog:
     appenders:
-      - type: console
+      - type: file
         threshold: ALL
         layout:
           type: access-json
@@ -44,3 +49,20 @@ server:
             timestamp: "@timestamp"
           additionalFields:
             service-name: "product-service"
+        logFormat:  "%h %l %u [%date{ISO8601}] %I '%r' %s %b '%i{Referer}' '%i{User-Agent}' %D"
+        #logFormat:  "%h %l %u [%t] '%r' %s %b '%i{Referer}' '%i{User-Agent}' %D"
+        #logFormat: '%h [%date{ISO8601}] "%r" %s %b %D [%i{User-Agent}]'
+        currentLogFilename: ./logs/PRODUCT_request.log
+        archivedLogFilenamePattern: ./logs/PRODUCT_request-%d.log.gz
+        archivedFileCount: 5
+
+metrics:
+  reporters:
+    - type: graphite
+      host: localhost
+      port: 2003
+      prefix: ProductService.1
+      transport: tcp
+      durationUnit: milliseconds
+      rateUnit: seconds
+      frequency: 5 second

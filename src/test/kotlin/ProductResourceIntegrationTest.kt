@@ -47,6 +47,8 @@ class ProductResourceIntegrationTest {
                 Product(1, "SKU-01", null, null),
                 Product(2, "SKU-02", null, null),
                 Product(3, "SKU-03", null, null),
+                Product(4, "SKU-04", null, null),
+                Product(5, "SKU-05", null, null),
         )
         assertEquals(expected, result)
     }

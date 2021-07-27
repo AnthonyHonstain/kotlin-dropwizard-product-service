@@ -19,15 +19,15 @@ class KotlinProductServiceApplication: Application<KotlinProductServiceConfigura
     override fun getName(): String = "KotlinProductService"
 
     override fun run(config: KotlinProductServiceConfiguration, env: Environment) {
-        val uniqueServiceId = UUID.randomUUID()
-        val graphite = Graphite(InetSocketAddress("localhost", 2003))
-        val reporter = GraphiteReporter.forRegistry(env.metrics())
-                .prefixedWith("ProductService.$uniqueServiceId")
-                .convertRatesTo(TimeUnit.SECONDS)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .filter(MetricFilter.ALL)
-                .build(graphite)
-        reporter.start(5, TimeUnit.SECONDS)
+        //val uniqueServiceId = 1 //UUID.randomUUID()
+        //val graphite = Graphite(InetSocketAddress("localhost", 2003))
+        //val reporter = GraphiteReporter.forRegistry(env.metrics())
+        //        .prefixedWith("ProductService.$uniqueServiceId")
+        //        .convertRatesTo(TimeUnit.SECONDS)
+        //        .convertDurationsTo(TimeUnit.MILLISECONDS)
+        //        .filter(MetricFilter.ALL)
+        //        .build(graphite)
+        //reporter.start(5, TimeUnit.SECONDS)
 
         /*
         Had some trouble remembering how to interact with the object mapper.
