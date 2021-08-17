@@ -66,3 +66,24 @@ metrics:
       durationUnit: milliseconds
       rateUnit: seconds
       frequency: 5 second
+
+producer:
+  type: basic
+  bootstrapServers:
+    - 127.0.0.1:29092
+#    - 127.0.0.1:9093
+#    - 127.0.0.1:9094
+  name: producerNameToBeUsedInMetrics
+  keySerializer:
+    type: string
+  valueSerializer:
+    type: string
+  acks: all
+  retries: 0
+  maxInFlightRequestsPerConnection: 1
+  maxPollBlockTime: 10s
+#  security:
+#    securityProtocol: sasl_ssl
+#    sslProtocol: TLSv1.2
+#    saslMechanism: PLAIN
+#    saslJaas: "org.apache.kafka.comm

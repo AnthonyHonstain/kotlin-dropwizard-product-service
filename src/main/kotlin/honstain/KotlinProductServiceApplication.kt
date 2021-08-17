@@ -4,8 +4,13 @@ import com.codahale.metrics.MetricFilter
 import com.codahale.metrics.graphite.Graphite
 import com.codahale.metrics.graphite.GraphiteReporter
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import honstain.kafkaProducer.ProductProducer
 import io.dropwizard.Application
+import io.dropwizard.kafka.KafkaProducerBundle
+import io.dropwizard.kafka.KafkaProducerFactory
+import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
+import org.apache.kafka.clients.producer.Producer
 import java.net.InetSocketAddress
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -17,6 +22,12 @@ class KotlinProductServiceApplication: Application<KotlinProductServiceConfigura
     }
 
     override fun getName(): String = "KotlinProductService"
+
+    override fun initialize(bootstrap: Bootstrap<KotlinProductServiceConfiguration>) {
+        super.initialize(bootstrap)
+
+        bootstrap.addBundle(kafkaProducer)
+    }
 
     override fun run(config: KotlinProductServiceConfiguration, env: Environment) {
         //val uniqueServiceId = 1 //UUID.randomUUID()
@@ -37,7 +48,20 @@ class KotlinProductServiceApplication: Application<KotlinProductServiceConfigura
          */
         env.objectMapper.registerModule(KotlinModule())
 
-        env.jersey().register(ProduceResource())
+        val producer: Producer<String?, String?> = kafkaProducer.producer
+        val productProducer = ProductProducer(producer)
+
+        env.jersey().register(ProduceResource(productProducer, env.objectMapper))
         env.jersey().register(ProvenanceIDFilter())
     }
+
+        private val topics: Collection<String> = listOf("quickstart-events")
+
+        private val kafkaProducer: KafkaProducerBundle<String?, String?, KotlinProductServiceConfiguration> =
+                        object : KafkaProducerBundle<String?, String?, KotlinProductServiceConfiguration>(topics) {
+
+                                override fun getKafkaProducerFactory(configuration: KotlinProductServiceConfiguration): KafkaProducerFactory<String?, String?> {
+                                        return configuration.getKafkaProducerFactory()!!
+                                }
+            }
 }

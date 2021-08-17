@@ -1,7 +1,9 @@
 package honstain
 
 import com.codahale.metrics.annotation.Timed
+import com.fasterxml.jackson.databind.ObjectMapper
 import honstain.api.Product
+import honstain.kafkaProducer.ProductProducer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import javax.ws.rs.*
@@ -11,7 +13,7 @@ import kotlin.random.Random
 
 @Path("/product")
 @Produces(MediaType.APPLICATION_JSON)
-class ProduceResource {
+class ProduceResource(val productProducer: ProductProducer, val objectMapper: ObjectMapper) {
 
     val log: Logger = LoggerFactory.getLogger(ProduceResource::class.java)
 
@@ -46,6 +48,10 @@ class ProduceResource {
     @Timed
     fun create(product: Product): Product {
         products[product.productId] = product
+
+        val productData: String = objectMapper.writeValueAsString(product)
+        productProducer.send(productData)
+
         return product
     }
 
